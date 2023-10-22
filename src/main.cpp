@@ -9,7 +9,6 @@ void setup()
 {
     M5.begin();
     Wire.begin(32,33);
-    Serial.begin(115200);
 
     M5.Lcd.setRotation(1);
     sprite.createSprite(M5.Lcd.width(), M5.Lcd.height());
@@ -53,23 +52,8 @@ void loop()
     a |= buf[5];
     tp = a / 5242.88 - 50;
 
-#if 0
-    Serial.print("T=" + String(tp) + "'C ");
-    Serial.println("H=" + String(hu) + "%");
-# elif 0
-    M5.Lcd.fillScreen(TFT_BLACK);
-    M5.Lcd.setTextSize(2);
-
-    M5.Lcd.setCursor(10,30);
-    M5.Lcd.print("T=" + String(tp) + "'C ");
-
-    M5.Lcd.setCursor(10,60);
-    M5.Lcd.print("H=" + String(hu) + "%");
-#else
     sprite.fillScreen(BLACK);
     sprite.drawString("T=" + String(tp) + "'C ", 0,30,4);
     sprite.drawString("H=" + String(hu) + "%",   0,60,4);
-
     sprite.pushSprite(0,0);
-#endif
 }
