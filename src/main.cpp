@@ -13,14 +13,11 @@ void setup() {
 }
 
 void loop() {
-  float hu, tp;
-  uint8_t buf[8];
-  long a;
-  int flg;
+  uint8_t buf[8] = {0};
 
   delay(500);
-  flg = 1;
-  while (flg) {
+
+  do {
     Wire.beginTransmission(ADR);
     Wire.write(0xac);
     Wire.write(0x33);
@@ -29,27 +26,25 @@ void loop() {
     delay(100);
 
     Wire.requestFrom(ADR, 6);
-    for (uint8_t i = 0; i < 6; i++) buf[i] = Wire.read();
-
-    if (buf[0] & 0x80) {
-      Serial.println("Measurement not Comp");
-    } else {
-      flg = 0;
+    for (uint8_t i = 0; i < 6; i++) {
+      buf[i] = Wire.read();
     }
-  }
+  } while (buf[0] & 0x80);
+
+  long a;
   a = buf[1];
   a <<= 8;
   a |= buf[2];
   a <<= 4;
   a |= ((buf[3] >> 4) & 0x0f);
-  hu = a / 10485.76;
+  float hu = a / 10485.76;
 
   a = (buf[3] & 0xf);
   a <<= 8;
   a |= buf[4];
   a <<= 8;
   a |= buf[5];
-  tp = a / 5242.88 - 50;
+  float tp = a / 5242.88 - 50;
 
   sprite.fillScreen(BLACK);
   sprite.drawString("T=" + String(tp) + "'C ", 0, 30, 4);
