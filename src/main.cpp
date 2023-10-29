@@ -47,7 +47,7 @@ void loop() {
   float tp = a / 5242.88 - 50;
 
   sprite.fillScreen(BLACK);
-  sprite.drawString("T=" + String(tp) + "'C ", 0, 30, 4);
+  sprite.drawString("T=" + String(tp) + "'C", 0, 30, 4);
   sprite.drawString("H=" + String(hu) + "%", 0, 60, 4);
   sprite.pushSprite(0, 0);
 }
