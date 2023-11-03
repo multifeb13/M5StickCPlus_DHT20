@@ -4,7 +4,7 @@
 #include "DHT20.hpp"
 
 TFT_eSprite sprite(&M5.Lcd);
-DHT20 dht20;
+DHT20 dht20(32, 33);
 
 void setup() {
   M5.begin();
