@@ -1,6 +1,7 @@
 #include "DHT20.hpp"
 
-DHT20::DHT20() { Wire.begin(i2c_sda_, i2c_scl_); }
+DHT20::DHT20() { Wire.begin(); }
+DHT20::DHT20(const int sda, const int sdl) { Wire.begin(sda, sdl); }
 
 void DHT20::read(float& temperature, float& humidity) {
   uint8_t buf[8] = {0};
